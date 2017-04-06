@@ -16,7 +16,7 @@ public:
 	StringArray(const StringArray& base);
 	~StringArray();
 
-
+	friend std::ostream& operator <<(std::ostream& os, const StringArray& arr);
 };
 
 #endif // STRINGARRAY_H

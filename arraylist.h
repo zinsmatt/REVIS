@@ -22,6 +22,7 @@ public:
 
 	bool add(Type elem);
 	bool pop();
+	void clear();
 
 	Type& operator[](int index);
 
@@ -40,8 +41,8 @@ public:
 		bool operator !=(const Iterator& it);
 	};
 
-	Iterator begin() { return Iterator(array, 0); }
-	Iterator end() { return Iterator(array, size); }
+	Iterator begin() const { return Iterator(array, 0); }
+	Iterator end() const { return Iterator(array, size); }
 };
 
 // method implementation ArrayList
@@ -49,7 +50,6 @@ public:
 template <class Type>
 ArrayList<Type>::ArrayList() : size(0), capacity(0), array(0)
 {
-	array = nullptr;
 }
 
 template <class Type>
@@ -106,6 +106,18 @@ bool ArrayList<Type>::pop()
 }
 
 template <class Type>
+void ArrayList<Type>::clear()
+{
+	// not necessary to delete the array
+	//if(array) delete[] array;
+	//size = 0;
+	//capacity = 0;
+
+	size = 0;
+
+}
+
+template <class Type>
 Type& ArrayList<Type>::operator [](int index)
 {
 	if(index < 0 || index >= size)
@@ -144,7 +156,7 @@ typename ArrayList<Type>::Iterator& ArrayList<Type>::Iterator::operator ++()
 template <class Type>
 bool ArrayList<Type>::Iterator::operator !=(const ArrayList<Type>::Iterator& it)
 {
-	index != it.index;
+	return index != it.index;
 }
 
 #endif // ARRAYLIST_H

@@ -21,7 +21,7 @@ string generateRandomString(size_t length)
   return result;
 }
 
-int main(int argc, char const *argv[])
+int main()
 {
 
 	ArrayList<int> ageList;
@@ -51,6 +51,14 @@ int main(int argc, char const *argv[])
 
 	StringArray arr("allez le losc");
 
+	StringArray arr2(arr),arr3("il fait beau");
+
+	cout << arr << endl;
+	cout << arr2 << endl;
+	cout << arr3 << endl;
+
+	arr3 = arr;
+	cout << arr3 << endl;
 
 	return 0;
 }

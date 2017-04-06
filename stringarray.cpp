@@ -1,5 +1,6 @@
 #include "stringarray.h"
 #include <iostream>
+#include <ostream>
 
 using namespace std;
 
@@ -12,10 +13,10 @@ StringArray::StringArray(const string& s)
 		string* nouv;
 		if(r == string::npos)
 		{
-			nouv = new string(s.substr(l,s.size()));
+			nouv = new string(s,l,s.size());
 		}else
 		{
-			nouv = new string(s.substr(l,r-l));
+			nouv = new string(s,l,r-l);
 		}
 		words.add(nouv);
 		cout << *nouv << endl;
@@ -31,3 +32,38 @@ StringArray::~StringArray()
 	}
 }
 
+StringArray::StringArray(const StringArray &base)
+{
+	for(ArrayList<string*>::Iterator it = base.words.begin();
+	    it != base.words.end();
+	    ++it)
+	{
+		words.add(new string(**it));
+	}
+}
+
+StringArray& StringArray::operator =(const StringArray &base)
+{
+	// first clear the own array
+	for(auto it = words.begin(); it != words.end(); ++it)
+	{
+		delete *it;
+	}
+	words.clear();
+
+	// then add the new words
+	for(ArrayList<string*>::Iterator it = base.words.begin();
+	    it != base.words.end();
+	    ++it)
+	{
+		words.add( new string(**it));
+	}
+	return *this;
+}
+
+
+ostream& operator <<(ostream& os, const StringArray& arr)
+{
+	os << arr.words;
+	return os;
+}

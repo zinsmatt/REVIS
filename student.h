@@ -2,7 +2,7 @@
 #define STUDENT_H
 #include <string>
 #include "human.h"
-#include <ostream>>
+#include <ostream>
 
 class Student : public Human
 {
