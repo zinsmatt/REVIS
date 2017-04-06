@@ -5,6 +5,7 @@
 #include <algorithm>
 #include "StudentManager.h"
 #include "arraylist.h"
+#include "stringarray.h"
 
 using namespace std;
 
@@ -42,9 +43,14 @@ int main(int argc, char const *argv[])
 
 	//cout << manager << endl;
 
-	cout << ageList;
+	//cout << ageList;
 	ageList.pop();
 	ageList.pop();
-	cout << ageList;
+	//cout << ageList;
+
+
+	StringArray arr("allez le losc");
+
+
 	return 0;
 }

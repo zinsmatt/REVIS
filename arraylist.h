@@ -27,7 +27,24 @@ public:
 
 	template <class Type1>
 	friend std::ostream& operator <<(std::ostream& os, const ArrayList<Type1>& array);
+
+	class Iterator
+	{
+		friend class ArrayList<Type>;
+		Type* pt;
+		int index;
+		Iterator(Type* p, int idx);
+	public:
+		Type& operator *();
+		Iterator& operator ++();
+		bool operator !=(const Iterator& it);
+	};
+
+	Iterator begin() { return Iterator(array, 0); }
+	Iterator end() { return Iterator(array, size); }
 };
+
+// method implementation ArrayList
 
 template <class Type>
 ArrayList<Type>::ArrayList() : size(0), capacity(0), array(0)
@@ -105,6 +122,29 @@ std::ostream& operator <<(std::ostream& os, const ArrayList<Type> & array)
 	}
 	os << std::endl;
 	return os;
+}
+
+
+//	methods implementation for ArrayList::Iterator
+template <class Type>
+ArrayList<Type>::Iterator::Iterator(Type *p, int idx) : pt(p), index(idx) {}
+
+template <class Type>
+Type& ArrayList<Type>::Iterator::operator *()
+{
+	return *(pt + index);
+}
+
+template <class Type>
+typename ArrayList<Type>::Iterator& ArrayList<Type>::Iterator::operator ++()
+{
+	index++;
+}
+
+template <class Type>
+bool ArrayList<Type>::Iterator::operator !=(const ArrayList<Type>::Iterator& it)
+{
+	index != it.index;
 }
 
 #endif // ARRAYLIST_H
