@@ -34,8 +34,8 @@ StringArray::~StringArray()
 
 StringArray::StringArray(const StringArray &base)
 {
-	for(ArrayList<string*>::Iterator it = base.words.begin();
-	    it != base.words.end();
+	for(ArrayList<string*>::const_Iterator it = base.words.cbegin();
+	    it != base.words.cend();
 	    ++it)
 	{
 		words.add(new string(**it));
@@ -52,8 +52,8 @@ StringArray& StringArray::operator =(const StringArray &base)
 	words.clear();
 
 	// then add the new words
-	for(ArrayList<string*>::Iterator it = base.words.begin();
-	    it != base.words.end();
+	for(ArrayList<string*>::const_Iterator it = base.words.cbegin();
+	    it != base.words.cend();
 	    ++it)
 	{
 		words.add( new string(**it));
@@ -64,6 +64,7 @@ StringArray& StringArray::operator =(const StringArray &base)
 
 ostream& operator <<(ostream& os, const StringArray& arr)
 {
-	os << arr.words;
+	for(StringArray::const_Iterator iter = arr.cbegin(); iter != arr.cend(); ++iter)
+		cout << *iter << " ";
 	return os;
 }

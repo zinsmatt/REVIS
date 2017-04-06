@@ -24,6 +24,9 @@ public:
 	bool pop();
 	void clear();
 
+	int getSize() const { return size; }
+	int getCapacity() const { return capacity; }
+
 	Type& operator[](int index);
 
 	template <class Type1>
@@ -31,18 +34,35 @@ public:
 
 	class Iterator
 	{
+	protected:
 		friend class ArrayList<Type>;
 		Type* pt;
 		int index;
-		Iterator(Type* p, int idx);
+		Iterator(ArrayList<Type>& p, int idx);
 	public:
 		Type& operator *();
 		Iterator& operator ++();
 		bool operator !=(const Iterator& it);
 	};
 
-	Iterator begin() const { return Iterator(array, 0); }
-	Iterator end() const { return Iterator(array, size); }
+	Iterator begin() { return Iterator(*this, 0); }
+	Iterator end() { return Iterator(*this, size); }
+
+	class const_Iterator
+	{
+	protected:
+		friend class ArrayList<Type>;
+		const Type* pt;
+		int index;
+		const_Iterator(const ArrayList<Type>& p, int idx);
+	public:
+		const Type& operator *();
+		const_Iterator& operator ++();
+		bool operator !=(const const_Iterator& it);
+	};
+
+	const_Iterator cbegin() const { return const_Iterator(*this, 0); }
+	const_Iterator cend() const { return const_Iterator(*this, size); }
 };
 
 // method implementation ArrayList
@@ -132,14 +152,13 @@ std::ostream& operator <<(std::ostream& os, const ArrayList<Type> & array)
 	{
 		os << array.array[iter] << " ";
 	}
-	os << std::endl;
 	return os;
 }
 
 
 //	methods implementation for ArrayList::Iterator
 template <class Type>
-ArrayList<Type>::Iterator::Iterator(Type *p, int idx) : pt(p), index(idx) {}
+ArrayList<Type>::Iterator::Iterator(ArrayList<Type> &p, int idx) : pt(p.array), index(idx) {}
 
 template <class Type>
 Type& ArrayList<Type>::Iterator::operator *()
@@ -151,10 +170,34 @@ template <class Type>
 typename ArrayList<Type>::Iterator& ArrayList<Type>::Iterator::operator ++()
 {
 	index++;
+	return *this;
 }
 
 template <class Type>
 bool ArrayList<Type>::Iterator::operator !=(const ArrayList<Type>::Iterator& it)
+{
+	return index != it.index;
+}
+
+//	methods implementation for ArrayList::const_Iterator
+template <class Type>
+ArrayList<Type>::const_Iterator::const_Iterator(const ArrayList<Type> &p, int idx) : pt(p.array), index(idx) {}
+
+template <class Type>
+const Type& ArrayList<Type>::const_Iterator::operator *()
+{
+	return *(pt + index);
+}
+
+template <class Type>
+typename ArrayList<Type>::const_Iterator& ArrayList<Type>::const_Iterator::operator ++()
+{
+	index++;
+	return *this;
+}
+
+template <class Type>
+bool ArrayList<Type>::const_Iterator::operator !=(const ArrayList<Type>::const_Iterator& it)
 {
 	return index != it.index;
 }
