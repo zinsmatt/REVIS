@@ -7,6 +7,7 @@
 #include "arraylist.h"
 #include "stringarray.h"
 #include "word.h"
+#include "arrays.h"
 
 using namespace std;
 
@@ -24,6 +25,11 @@ string generateRandomString(size_t length)
 
 int main()
 {
+	mainArrays();
+
+	return 0;
+
+	//STOP ---
 
 	ArrayList<int> ageList;
 	StudentManager& manager = StudentManager::getInstance();

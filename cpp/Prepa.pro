@@ -10,7 +10,8 @@ SOURCES += main.cpp StudentManager.cpp \
     stringcontainer.cpp \
     mystring.cpp \
     stringarray.cpp \
-    word.cpp
+    word.cpp \
+    arrays.cpp
 HEADERS += StudentManager.h \
     human.h \
     student.h \
@@ -18,7 +19,8 @@ HEADERS += StudentManager.h \
     stringcontainer.h \
     mystring.h \
     stringarray.h \
-    word.h
+    word.h \
+    arrays.h
 
 include(deployment.pri)
 qtcAddDeployment()
