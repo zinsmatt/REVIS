@@ -6,6 +6,7 @@
 #include "StudentManager.h"
 #include "arraylist.h"
 #include "stringarray.h"
+#include "word.h"
 
 using namespace std;
 
@@ -59,6 +60,19 @@ int main()
 
 	arr3 = arr;
 	cout << arr3 << endl;
+
+	Word w("csoL");
+	w += "Losc";
+
+	cout << w << endl;
+	cout << (w.isPalyndrome() ? "palydrome" : "not palydrome") << endl;
+
+
+	cout << w.toUpper() << endl;
+	cout << w.toLower() << endl;
+	cout << w.inverseCase() << endl;
+
+
 
 	return 0;
 }

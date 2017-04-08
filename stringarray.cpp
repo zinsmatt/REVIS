@@ -10,13 +10,13 @@ StringArray::StringArray(const string& s)
 	while(r != string::npos)
 	{
 		r = s.find(' ',l+1);
-		string* nouv;
+		Word* nouv;
 		if(r == string::npos)
 		{
-			nouv = new string(s,l,s.size());
+			nouv = new Word(s.substr(l,s.size()));
 		}else
 		{
-			nouv = new string(s,l,r-l);
+			nouv = new Word(s.substr(l,r-l));
 		}
 		words.add(nouv);
 		cout << *nouv << endl;
@@ -34,11 +34,11 @@ StringArray::~StringArray()
 
 StringArray::StringArray(const StringArray &base)
 {
-	for(ArrayList<string*>::const_Iterator it = base.words.cbegin();
+	for(ArrayList<Word*>::const_Iterator it = base.words.cbegin();
 	    it != base.words.cend();
 	    ++it)
 	{
-		words.add(new string(**it));
+		words.add(new Word(**it));
 	}
 }
 
@@ -52,11 +52,11 @@ StringArray& StringArray::operator =(const StringArray &base)
 	words.clear();
 
 	// then add the new words
-	for(ArrayList<string*>::const_Iterator it = base.words.cbegin();
+	for(ArrayList<Word*>::const_Iterator it = base.words.cbegin();
 	    it != base.words.cend();
 	    ++it)
 	{
-		words.add( new string(**it));
+		words.add( new Word(**it));
 	}
 	return *this;
 }
