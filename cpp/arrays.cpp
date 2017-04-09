@@ -176,10 +176,118 @@ void findPeak(int* a, int size)
 	}
 }
 
+void maxSubArray(int* a, int size)
+{
+	// find the sub array with the maximal sum
+
+	// 1. O(n^3)	probably not the best
+	// 2. O(n)		check if by adding the previous sum is better than just keeping the current elem
+	int version = 2;
+
+	switch(version)
+	{
+		case 1:
+		{
+			int maxSum = -99999;
+			int l=0,r=0;
+			for(int x1=0;x1<size;x1++)
+			{
+				for(int x2=x1;x2<size;x2++)
+				{
+					int sum = 0;
+					for(int x3=x1;x3<=x2;x3++)
+					{
+						sum += a[x3];
+					}
+					if(sum>maxSum)
+					{
+						maxSum = sum;
+						l = x1;
+						r = x2;
+					}
+				}
+			}
+			for(int k=l;k<=r;k++)
+				cout << a[k] << " ";
+			cout << "==> " << maxSum << endl;
+		}
+		case 2:
+		{
+			int maxSum = a[0], sumEndingHere = a[0];
+			int l=0,r=0,bestL = 0, bestR = 0;
+			for(int iter=1;iter<size;++iter)
+			{
+				if(sumEndingHere + a[iter] < a[iter])
+				{
+					l = iter;
+					r = iter;
+					sumEndingHere = a[iter];
+				}else
+				{
+					r = iter;
+					sumEndingHere += a[iter];
+				}
+
+				if(sumEndingHere > maxSum)
+				{
+					maxSum = sumEndingHere;
+					bestL = l;
+					bestR = r;
+				}
+			}
+
+			for(int k=bestL;k<=bestR;++k)
+				cout << a[k] << " ";
+			cout << "==> " << maxSum << endl;
+		}
+	}
+
+
+}
+
+
+int partition(int* array, int l0, int r0, int k)
+{
+	int l=l0, r=r0-1;
+	swap(array+r0,array+k-1);
+	while(l<r)
+	{
+		while(r>=l0 && array[r]<=array[r0])	r--;
+		while(array[l]>array[r0])	l++;
+
+		if(l<r)
+			swap(array+l, array+r);
+	}
+
+	if(array[r0]>array[l])
+		swap(array+r0, array+l);
+
+	if(l+1 == k)
+	{
+		return l;
+	}else if(l+1 < k)
+	{
+		return partition(array,l+1,r0,k);
+	}else
+	{
+		return partition(array,l0,l-1,k);
+	}
+}
+
+void KthLargest(int *a, int size, int k)
+{
+	// find the kth largest element as it would appear in the sorted array
+	// quick sort select : after partitioning we know the pivot is the kth elem
+	//						then continue with the higher or lower part
+	// average O(n)
+	cout << "kth-largest ==> " << a[partition(a,0,size-1,k)] << endl;
+}
+
+
 
 void mainArrays()
 {
-	int array[] = {0,-1,2,4,30,31};
+	int array[] = {1,-1,2,-7,1,7};
 	int size = 6;
 
 	//reverseArray(array,size);
@@ -188,7 +296,11 @@ void mainArrays()
 
 	//duplicate(array,size);
 
-	findPeak(array,size);
+	//findPeak(array,size);
+
+	//maxSubArray(array,size);
+
+	KthLargest(array,size,1);
 
 	print(array, size);
 }
