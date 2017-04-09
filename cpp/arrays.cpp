@@ -371,23 +371,59 @@ void shuffle(int *a, int size)
 void findMinInRotatedSorteArray(int* a, int size)
 {
 	// find the minimum value in an rotated sorted array
-	// O(n)
-
-	int prev = size-1;
-	int idx = 0;
-	while(a[idx]>a[prev])
+	// 1. O(n)
+	// 2. O(log(n))
+	int version=2;
+	switch(version)
 	{
-		prev = idx;
-		idx = (idx+1)%size;
+		case 1:
+		{
+			int prev = size-1;
+			int idx = 0;
+			while(a[idx]>a[prev])
+			{
+				prev = idx;
+				idx = (idx+1)%size;
+			}
+			cout << a[idx] << endl;
+			break;
+		}
+		case 2:
+		{
+			// if a[middle] > a[last] => th eminimum is on the right of mid
+			// if a[mid] < a[last] => the minimum is on the left of mid
+			int l = 0;
+			int r = size-1;
+
+			while(l<r)
+			{
+				int mid = (l+r)/2;
+
+				if(mid == r || mid == l)
+				{
+					cout << min(a[mid],min(a[l],a[r])) << endl;
+					return;
+				}
+
+				if(a[mid]>a[r])
+					l = mid+1;
+				else
+					r = mid;
+			}
+			cout << a[l] << endl;
+			break;
+		}
 	}
-	cout << a[idx] << endl;
+
+
 }
+
 
 void mainArrays()
 {
 
 	srand(time(NULL));
-	int array[] = {0,1,2,3,4,5,6,7};
+	int array[] = {2,3,4,5,6,7,8,9};
 	int size = 8;
 
 	//reverseArray(array,size);
