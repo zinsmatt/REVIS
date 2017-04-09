@@ -3,7 +3,7 @@
 #include <set>
 #include <unordered_set>
 #include <unordered_map>
-
+#include <vector>
 //#define NO_STL
 
 
@@ -283,11 +283,30 @@ void KthLargest(int *a, int size, int k)
 	cout << "kth-largest ==> " << a[partition(a,0,size-1,k)] << endl;
 }
 
+void findAllDuplicates(int* a, int size)
+{
+	// find all the duplicates in O(n) without extra memory
+	//	1 <= a[i] <= size
+	// O(n)
 
+	vector<int> duplicates;
+	for(int iter = 0; iter < size; iter++)
+	{
+		int idx = abs(a[iter])-1;
+		if(a[idx]<0)
+		{
+			duplicates.push_back(idx+1);
+		}
+		a[idx] *= -1;
+	}
+	for(auto k : duplicates)
+		cout << k << " ";
+	cout << endl;
+}
 
 void mainArrays()
 {
-	int array[] = {1,-1,2,-7,1,7};
+	int array[] = {2,1,4,6,1,2};
 	int size = 6;
 
 	//reverseArray(array,size);
@@ -300,7 +319,9 @@ void mainArrays()
 
 	//maxSubArray(array,size);
 
-	KthLargest(array,size,1);
+	//KthLargest(array,size,1);
+
+	findAllDuplicates(array,size);
 
 	print(array, size);
 }
