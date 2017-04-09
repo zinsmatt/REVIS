@@ -10,13 +10,17 @@
 
 using namespace std;
 
+int max(int a, int b, int c)
+{
+	return max(a,max(b,c));
+}
+
 void print(int* array, int size)
 {
 	for(int k=0;k<size;k++)
 		cout << array[k] << " ";
 	cout << endl;
 }
-
 
 void swap(int* a, int* b)
 {
@@ -304,10 +308,57 @@ void findAllDuplicates(int* a, int size)
 	cout << endl;
 }
 
+int partitionIncreasing(int *a, int l, int r)
+{
+	if(l>r) return 0;
+	else if(r-l == 0) return 1;
+	else if(r-l == 1 && a[r]>a[l]) return 2;
+	else
+	{
+		int mid = (l+r)/2;
+		int ll=1,rr=1;
+		while(mid-ll>=l && a[mid-ll]<a[mid-ll+1])	ll++;
+		while(mid+rr<=r && a[mid+rr]>a[mid+rr-1]) rr++;
+		return max((1+rr-1+ll-1), partitionIncreasing(a,l,mid-ll), partitionIncreasing(a,mid+rr,r));
+	}
+}
+
+void longestIncreasingSequence(int* a, int size)
+{
+	// find the length of the longest increasing sequence
+	// 1. O(n^2)
+	// 2. O(nlog(n))binary expand around the middle and then compare with outside part
+
+	int version = 2;
+	switch(version)
+	{
+		case 1:
+		{
+			int maxLength = 0;
+			for(int iter=0; iter<size; iter++)
+			{
+				int length = 1;
+				while(a[iter+length]>a[iter+length-1])
+					length++;
+				if(length > maxLength)
+					maxLength = length;
+			}
+			cout << maxLength << endl;
+
+			break;
+		}
+		case 2:
+		{
+			cout << partitionIncreasing(a,0,size-1) << endl;
+			break;
+		}
+	}
+}
+
 void mainArrays()
 {
-	int array[] = {2,1,4,6,1,2};
-	int size = 6;
+	int array[] = {2,1,2,4,5,2,1,2,3,1,5};
+	int size = 11;
 
 	//reverseArray(array,size);
 	//reverseArray(array,array+size-1);
@@ -321,7 +372,9 @@ void mainArrays()
 
 	//KthLargest(array,size,1);
 
-	findAllDuplicates(array,size);
+	//findAllDuplicates(array,size);
+
+	longestIncreasingSequence(array, size);
 
 	print(array, size);
 }

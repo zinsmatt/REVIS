@@ -43,7 +43,7 @@ Word& Word::operator +=(const Word& w)
 Word Word::toLower() const
 {
 	Word word("");
-	for(int iter=0;iter<_str.size(); ++iter)
+	for(unsigned int iter=0;iter<_str.size(); ++iter)
 	{
 		word += tolower((int)_str[iter]);
 	}
@@ -53,7 +53,7 @@ Word Word::toLower() const
 Word Word::toUpper() const
 {
 	Word word("");
-	for(int iter=0; iter < _str.size(); ++iter)
+	for(unsigned int iter=0; iter < _str.size(); ++iter)
 	{
 		word += toupper((int) _str[iter]);
 	}
@@ -63,7 +63,7 @@ Word Word::toUpper() const
 Word Word::inverseCase() const
 {
 	Word word("");
-	for(int iter=0; iter <_str.size(); ++iter)
+	for(unsigned int iter=0; iter <_str.size(); ++iter)
 	{
 		if(isupper((int)_str[iter]))
 			word += tolower((int)_str[iter]);
