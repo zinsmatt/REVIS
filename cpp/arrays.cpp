@@ -1,4 +1,6 @@
 #include "arrays.h"
+#include <stdlib.h>
+#include <time.h>
 #include <iostream>
 #include <set>
 #include <unordered_set>
@@ -355,10 +357,38 @@ void longestIncreasingSequence(int* a, int size)
 	}
 }
 
+void shuffle(int *a, int size)
+{
+	// O(n)
+
+	for(int iter=0; iter < size; iter++)
+	{
+		int idx = iter + rand() % (size - iter);
+		swap(a+iter,a+idx);
+	}
+}
+
+void findMinInRotatedSorteArray(int* a, int size)
+{
+	// find the minimum value in an rotated sorted array
+	// O(n)
+
+	int prev = size-1;
+	int idx = 0;
+	while(a[idx]>a[prev])
+	{
+		prev = idx;
+		idx = (idx+1)%size;
+	}
+	cout << a[idx] << endl;
+}
+
 void mainArrays()
 {
-	int array[] = {2,1,2,4,5,2,1,2,3,1,5};
-	int size = 11;
+
+	srand(time(NULL));
+	int array[] = {0,1,2,3,4,5,6,7};
+	int size = 8;
 
 	//reverseArray(array,size);
 	//reverseArray(array,array+size-1);
@@ -374,7 +404,11 @@ void mainArrays()
 
 	//findAllDuplicates(array,size);
 
-	longestIncreasingSequence(array, size);
+	//longestIncreasingSequence(array, size);
+
+	//shuffle(array,size);
+
+	findMinInRotatedSorteArray(array,size);
 
 	print(array, size);
 }
