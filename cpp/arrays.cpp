@@ -418,12 +418,69 @@ void findMinInRotatedSorteArray(int* a, int size)
 
 }
 
+int binarySearch(int* a, int l, int r, int k)
+{
+	if(r<l)
+		return -1;
+	if(l == r)
+	{
+		if(a[l] == k)
+			return l;
+		else
+			return -1;
+	}
+	int mid = (l+r) / 2;
+	if(a[mid] == k)
+		return mid;
+	if(mid == l)
+		return binarySearch(a,l+1,r,k);
+
+	if(a[mid] > k)
+		return binarySearch(a,l,mid-1,k);
+	else
+		return binarySearch(a,mid+1,r,k);
+}
+
+void searchInRotatedSortedArray(int* a, int size, int k)
+{
+	// search k in array
+	// find th epivot and then binary search on one side or the other
+	// O(log(n))
+
+	int l = 0;
+	int r = size-1;
+	int pivot;
+
+	while(l<r)
+	{
+		int mid = (l+r)/2;
+
+		if(mid == r || mid == l)
+		{
+			pivot = (a[l]<a[r]) ? l : r;
+			break;
+		}
+
+		if(a[mid]>a[r])
+			l = mid+1;
+		else
+			r = mid;
+	}
+
+
+	int idx = -1;
+	if(a[pivot] <= k && k<=a[size-1])
+		idx = binarySearch(a,pivot,size-1,k);
+	else
+		idx = binarySearch(a,0,pivot-1,k);
+	cout << k << " -> " << idx << endl;
+}
 
 void mainArrays()
 {
 
 	srand(time(NULL));
-	int array[] = {2,3,4,5,6,7,8,9};
+	int array[] = {5,6,7,8,9,2,3,4};
 	int size = 8;
 
 	//reverseArray(array,size);
@@ -444,7 +501,9 @@ void mainArrays()
 
 	//shuffle(array,size);
 
-	findMinInRotatedSorteArray(array,size);
+	//findMinInRotatedSorteArray(array,size);
+
+	searchInRotatedSortedArray(array,size,8);
 
 	print(array, size);
 }
