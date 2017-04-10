@@ -478,6 +478,7 @@ void searchInRotatedSortedArray(int* a, int size, int k)
 
 void mainArrays()
 {
+	cout << "Arrays" << endl;
 
 	srand(time(NULL));
 	int array[] = {5,6,7,8,9,2,3,4};

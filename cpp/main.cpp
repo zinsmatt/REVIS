@@ -8,6 +8,7 @@
 #include "stringarray.h"
 #include "word.h"
 #include "arrays.h"
+#include "linkedlist.h"
 
 using namespace std;
 
@@ -25,7 +26,8 @@ string generateRandomString(size_t length)
 
 int main()
 {
-	mainArrays();
+//	mainArrays();
+	mainLinkedList();
 
 	return 0;
 

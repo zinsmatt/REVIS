@@ -11,7 +11,8 @@ SOURCES += main.cpp StudentManager.cpp \
     mystring.cpp \
     stringarray.cpp \
     word.cpp \
-    arrays.cpp
+    arrays.cpp \
+    linkedlist.cpp
 HEADERS += StudentManager.h \
     human.h \
     student.h \
@@ -20,7 +21,8 @@ HEADERS += StudentManager.h \
     mystring.h \
     stringarray.h \
     word.h \
-    arrays.h
+    arrays.h \
+    linkedlist.h
 
 include(deployment.pri)
 qtcAddDeployment()
